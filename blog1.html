@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章 · 阅读页</title>
+    <style>
+        /* 简洁重置 + 基础风格 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fafaf8;   /* 暖白底，护眼舒适 */
+            font-family: 'Georgia', 'Times New Roman', '宋体', 'Songti SC', serif;
+            line-height: 1.7;
+            color: #1e1e1e;
+            padding: 1.5rem 1rem;        /* 移动端友好 */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 文章卡片容器 —— 保留充足留白，像一本书 */
+        .post {
+            max-width: 740px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 2px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem 2.2rem;
+            margin: 1.5rem 0 3rem 0;
+            position: relative;
+        }
+
+        /* 返回按钮区域 — 左上角，视觉独立 */
+        .back-header {
+            width: 100%;
+            max-width: 740px;
+            margin-bottom: 0.2rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 400;
+            font-family: -apple-system, 'Helvetica Neue', sans-serif;
+            color: #5e5e5e;
+            text-decoration: none;
+            padding: 8px 12px 8px 8px;
+            margin-left: -8px;          /* 与文章对齐更舒服 */
+            border-radius: 40px;
+            transition: background-color 0.2s, color 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .back-btn:hover {
+            background-color: #f0f0ec;
+            color: #1e1e1e;
+            text-decoration: none;
+        }
+
+        .back-btn svg {
+            fill: currentColor;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 文章主体排版 */
+        .article-title {
+            font-size: 2.2rem;
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            margin-top: 0.4rem;
+            margin-bottom: 0.5rem;
+            color: #121212;
+            border-bottom: 1px solid #eaeae6;
+            padding-bottom: 1rem;
+        }
+
+        /* 元数据：作者/日期 可忽略，保留一种沉静感 */
+        .meta {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85rem;
+            color: #8f8f8b;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 文章正文 */
+        .content {
+            font-size: 1.1rem;
+        }
+
+        .content p {
+            margin-bottom: 1.6rem;
+        }
+
+        .content h2, .content h3 {
+            font-weight: 500;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #2a2a28;
+        }
+
+        .content blockquote {
+            border-left: 4px solid #d4d4ce;
+            margin: 1.8rem 0;
+            padding: 0.2rem 1.8rem;
+            color: #4a4a44;
+            font-style: italic;
+            background-color: #f9f9f7;
+        }
+
+        .content code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            background: #f2f2ee;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #2e2e2b;
+        }
+
+        .content pre {
+            background: #f2f2ee;
+            padding: 1.2rem;
+            overflow-x: auto;
+            border-radius: 4px;
+            margin: 1.6rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* 分隔装饰 */
+        hr {
+            border: 0;
+            height: 1px;
+            background: #eaeae6;
+            margin: 2rem 0;
+        }
+
+        /* 脚注一样淡 */
+        .footer-note {
+            max-width: 740px;
+            width: 100%;
+            font-size: 0.8rem;
+            color: #b1b1ab;
+            font-family: sans-serif;
+            text-align: center;
+            border-top: 1px solid #eaeae6;
+            padding-top: 2rem;
+            margin-top: 1rem;
+        }
+
+        /* 针对小屏优化 */
+        @media (max-width: 500px) {
+            body {
+                padding: 0.8rem;
+            }
+            .post {
+                padding: 1.8rem 1.5rem;
+            }
+            .article-title {
+                font-size: 1.9rem;
+            }
+            .back-btn {
+                margin-left: -4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 左上角返回按钮（独立于文章卡片，保持在统一位置） -->
+    <div class="back-header">
+        <a href="test.html" class="back-btn" title="返回个人网站">
+            <!-- 简单左箭头 SVG -->
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            <span>返回</span>
+        </a>
+    </div>
+
+    <!-- 文章阅读卡片 — 你只需替换标题、元数据及 .content 内部内容即可 -->
+    <article class="post">
+        <!-- 文章标题区域（可替换） -->
+        <h1 class="article-title">无题</h1>
+        <div class="meta">
+            <span>海潮</span>
+            <span>2026-01-26</span>
+        </div>
+
+        <!-- 正文容器：从这里开始粘贴你的文章内容（支持多段落、引用、代码等） -->
+        <div class="content">
+            <!-- 以下是示例文字，你可以直接全部替换成自己的三篇文章内容（拷贝到这里） -->
+            <p>吃完自助餐，我和妈走上街。妈说天气比下午出来更冷了一些，我回答应该是的，虽然我没感觉到。</p>
+            <p>我从10℃的冬天就穿身上这套，穿到前天下了雪，穿到现在这个晚上。一套衣服是我精心的颜色搭配，深绿到深蓝的渐变，中间夹件海草绿的羽绒，热了脱冷了穿，美滋滋。</p>
+            <p>高中时候，我冬季固定一件校服外套，套装的设计只从内部开始。我有三套，白to灰，绿to深绿，pure黑to pure黑。作为套装，首先单件衣服要入了我的法眼，其次它还要能跟入了我法眼的几件衣服一起入我法眼。鲤鱼跃龙门不止一次，看龙的要求可能要跃两三次。黑色套是我喜欢的三个套装中最不喜欢的，两件黑衣服颜色质地没有层次，我倒也一直没能挑到更好的衣服。</p>
+            <p>但黑色套反而是最适合我日常的。高中时体育课和文化课经常交织在同一个四小时，白色套的灰卫衣大了一号，绿色套是件线衫，只有黑卫衣是最舒畅的耐克套头卫衣。这感觉就好比某人有三把吉他，st声音甜，JazzMaster醇厚又二次元，但ta要演两个小时试来试去最终发现效果可以接受，背上了最轻的telecaster。</p>
+            <p>不过黑色套给我也带来了一些东西，就像某人最终选择那次演出用telecaster，这不是错误的，这是没因为感性存在而被忽视的理性。我随便活动，拖曳步变相误导师从Allen Iverson，上课校服外套一脱一挂感觉大脑十分清醒，去食堂抢饭路上还能把卫衣帽子一戴，那帽子上一串小黄字我还挺喜欢的，很有设计感。我权衡了我喜欢的之后，选择了最适合生活的，没欺骗自己选另一套也一样过日子，那就不一样，灰卫衣来早把我拽到地上了，绿线衫来打球全脏了。</p>
+            <p>然后我毕业了，日常不用穿校服也不适合再穿校服了。离开校服，我开始挑选外套和长裤，从摇粒绒到千鸟纹，从灯芯绒到氨纶和棉。套装变得糊涂起来，因为一件外套的失败或更换，我不得不对内里重新进行设计，一遍一遍审视我衣柜里那几件衣服和淘宝上千千万万件卫衣毛衣针织衫。气温是复杂的，会从5℃到-5℃，我的衣服也是复杂的，复杂到它有时甚至只有一个抽象的概念，叫一件防风耐看便于活动的外套，没有实体。</p>
+            <p>对着我衣柜里剩下的高中衣服，绿色线衫，黑白绿三件针织衫，经历了两年半大学的我有了哭之前的感觉，不过我已经不会真的哭了，大概率，除非哭能解决事情。高中生物课我学过，人体内神经分为交感神经和副交感神经，副交感神经是潜意识的领域，显意识只能控制交感神经。哭就是一件双方神经平分虎符的事，还有很多事也是，比如学习，比如运动，比如吉他，比如吃饭，比如睡觉，比如人生中的绝大部分事。</p>
+            <p>于是我意识到，只对着那些旧衣服找外套，本质是刻舟求剑。生活变了，相比于高中，大学生活会更平，没有高考和家长阻拦信息了，在一个信息爆炸的环境里大量存在是被信息淹没的人，当然也有别的人，那是一批认清现状后继续控制信息量的人。外界信息处理不过来，何谈反复地咀嚼品味。</p>
+            <p>我挑了件外套，符合我地理系的身份，不抢眼、不潮流，但这衣服没设计也是假的。加上另一件，我就有两件合适的外套了。冬天本来买衣服就难，我觉得可以了。</p>
+            <p>更理想的情况是有条裤子能跟我身上这条一直换。但没事，就像选择那把telecaster，先用着吧，等到哪天演出条件能换琴了不用连着演了，等到哪天我逛淘宝恰好看到一条合适的我就能换了。急也没用。</p>
+            <p>天是冷了，我显意识没感受到，但要是有人说我的副交感神经没有帮助我调节体温，那也是假的。</p>
+            <hr>
+        </div>
+        <!-- content 结束 -->
+    </article>
+
+    <!-- 极简脚注，只起装饰作用，可删除 -->
+    <div class="footer-note">
+        <span>◊</span>  <span>阅读 · 静处</span>  <span>◊</span>
+    </div>
+
+    <!-- 说明：如何替换文章？ 
+         1. 将上面 <h1 class="article-title"> 里的标题改成你自己的。
+         2. 调整 <div class="meta"> 里的作者/日期，或者整行删除。
+         3. 将 <div class="content"> 里面所有演示内容清空，直接粘贴你的文章正文。
+            你可以使用 &lt;p&gt;、&lt;h2&gt;、&lt;blockquote&gt;、&lt;pre&gt; 等任意html标签来保持结构。
+         4. 如果需要增加第二篇、第三篇文章，只需复制整个 &lt;article class="post"&gt; 到下一个，并更改内容。
+         5. 左上角“返回”按钮默认执行 history.back()，即退回上一页（通常是你的个人网站列表页）。
+             如果想直接链接到个人网站首页，可以将 href="javascript:history.back()" 改成 href="/" 或你的绝对网址。
+    -->
+</body>
+</html>

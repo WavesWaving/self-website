@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章 · 阅读页</title>
+    <style>
+        /* 简洁重置 + 基础风格 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fafaf8;   /* 暖白底，护眼舒适 */
+            font-family: 'Georgia', 'Times New Roman', '宋体', 'Songti SC', serif;
+            line-height: 1.7;
+            color: #1e1e1e;
+            padding: 1.5rem 1rem;        /* 移动端友好 */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 文章卡片容器 —— 保留充足留白，像一本书 */
+        .post {
+            max-width: 740px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 2px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem 2.2rem;
+            margin: 1.5rem 0 3rem 0;
+            position: relative;
+        }
+
+        /* 返回按钮区域 — 左上角，视觉独立 */
+        .back-header {
+            width: 100%;
+            max-width: 740px;
+            margin-bottom: 0.2rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 400;
+            font-family: -apple-system, 'Helvetica Neue', sans-serif;
+            color: #5e5e5e;
+            text-decoration: none;
+            padding: 8px 12px 8px 8px;
+            margin-left: -8px;          /* 与文章对齐更舒服 */
+            border-radius: 40px;
+            transition: background-color 0.2s, color 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .back-btn:hover {
+            background-color: #f0f0ec;
+            color: #1e1e1e;
+            text-decoration: none;
+        }
+
+        .back-btn svg {
+            fill: currentColor;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 文章主体排版 */
+        .article-title {
+            font-size: 2.2rem;
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            margin-top: 0.4rem;
+            margin-bottom: 0.5rem;
+            color: #121212;
+            border-bottom: 1px solid #eaeae6;
+            padding-bottom: 1rem;
+        }
+
+        /* 元数据：作者/日期 可忽略，保留一种沉静感 */
+        .meta {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85rem;
+            color: #8f8f8b;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 文章正文 */
+        .content {
+            font-size: 1.1rem;
+        }
+
+        .content p {
+            margin-bottom: 1.6rem;
+        }
+
+        .content h2, .content h3 {
+            font-weight: 500;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #2a2a28;
+        }
+
+        .content blockquote {
+            border-left: 4px solid #d4d4ce;
+            margin: 1.8rem 0;
+            padding: 0.2rem 1.8rem;
+            color: #4a4a44;
+            font-style: italic;
+            background-color: #f9f9f7;
+        }
+
+        .content code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            background: #f2f2ee;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #2e2e2b;
+        }
+
+        .content pre {
+            background: #f2f2ee;
+            padding: 1.2rem;
+            overflow-x: auto;
+            border-radius: 4px;
+            margin: 1.6rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* 分隔装饰 */
+        hr {
+            border: 0;
+            height: 1px;
+            background: #eaeae6;
+            margin: 2rem 0;
+        }
+
+        /* 脚注一样淡 */
+        .footer-note {
+            max-width: 740px;
+            width: 100%;
+            font-size: 0.8rem;
+            color: #b1b1ab;
+            font-family: sans-serif;
+            text-align: center;
+            border-top: 1px solid #eaeae6;
+            padding-top: 2rem;
+            margin-top: 1rem;
+        }
+
+        /* 针对小屏优化 */
+        @media (max-width: 500px) {
+            body {
+                padding: 0.8rem;
+            }
+            .post {
+                padding: 1.8rem 1.5rem;
+            }
+            .article-title {
+                font-size: 1.9rem;
+            }
+            .back-btn {
+                margin-left: -4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 左上角返回按钮（独立于文章卡片，保持在统一位置） -->
+    <div class="back-header">
+        <a href="test.html" class="back-btn" title="返回个人网站">
+            <!-- 简单左箭头 SVG -->
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            <span>返回</span>
+        </a>
+    </div>
+
+    <!-- 文章阅读卡片 — 你只需替换标题、元数据及 .content 内部内容即可 -->
+    <article class="post">
+        <!-- 文章标题区域（可替换） -->
+        <h1 class="article-title">此时此刻与彼时彼刻</h1>
+        <div class="meta">
+            <span>海潮</span>
+            <span>2025-11-03</span>
+        </div>
+
+        <!-- 正文容器：从这里开始粘贴你的文章内容（支持多段落、引用、代码等） -->
+        <div class="content">
+            <!-- 以下是示例文字，你可以直接全部替换成自己的三篇文章内容（拷贝到这里） -->
+            <p>	男人的母亲去世了。他从烟盒里取出只烟抽起来，说不清是什么感情。不过他还是想写点东西。</p>
+            <p>给母亲：</p>
+            <p>娟是个好人、是我的母亲、是个在八十七岁时过世的人。</p>
+            <p>娟的母亲在她十岁时过世了，她搬到城里跟她父亲和大她八岁的姐姐一起生活。父亲是个工人，工资加上她姐妹俩做的家务，日子过得也是富有生机。抱歉我只能想象这些东西。</p>
+            <p>娟渐渐长大，到了考大学的日子。那个年代工人的地位很高，考不上专科的人才会考大学，因为她爸，娟也想考个专科当工人。娟很努力的学习，最后考出来离想去的专科差了两分。</p>
+            <p>“娟，你去上不？”</p>
+            <p>“爸，我不去了，花那么多钱又读不到我想读的，不去。”</p>
+            <p>娟没跟她爸说过，这个决定她从准备考试前就想好了。娟找了份白天的工作，又找了个夜校，半工半读的拿了文凭，也认识了冰，就是我爸。</p>
+            <p>娟带着这份文凭，终于进了电力公司，成了名光荣的工人，然后就有了我。抱歉娟，我知道你说这些东西一定口吻会比我自豪许多，但我只能做到这样。</p>
+            <p>娟对我怎么称呼娟很有意见。小的时候娟让我叫她妈妈，长大了有段时间我不知道叫娟什么，我一段时间没叫妈也没叫娟，我只是面对着她跟她聊天，直到她有天实在忍不住：“你回家怎么都不叫妈了？以后说话前都要叫妈！”</p>
+            <p>我不理解娟为什么那么喜欢这个称呼。小时候我看过一本书，叫《妈妈不是我的仆人》，中学时候我早恋，认识到人不只有一个身份，我的爱人是个学生，是一对父母的女儿，也是我的爱人。对于我妈，她也是很多个人，不过她依然只让我叫妈。</p>
+            <p>娟傻傻的。</p>
+            <p>	娟估计觉得我也挺傻，如果不觉得我傻就要觉得我人坏了，毕竟我跟她说话连妈都不愿意叫，真没规矩。</p>
+            <p>我确实傻，我不懂很多东西，娟也不懂很多东西。好吧其实现在我懂，只是我当时不懂或者我当时不愿承认罢了。但娟确实不懂另外些东西。娟估计永远也不会问出烟盒里的每只烟有什么区别的问题，娟说不太清她的工厂为啥倒闭了，她可能觉得无非就是赚不到钱嘛，这有啥好说的，傻不傻，再找份工呗。</p>
+            <p>其实没人傻。我不太知道娟明不明白这件事。她总说自己方向感不好不适合开车，唱歌唱的跑调不适合唱歌。我感觉她是不明白。</p>
+            <p>这样的娟这样的去世了。对于娟我有点惋惜，对于我妈我很难过，对于某个八十七岁过世的人我觉得活的挺久的了，很幸福。</p>
+            <p>男人写的动情，烟盒不小心被撞落。他也说不清烟盒里的每支烟有什么区别，但他知道他正在抽手上这支。那年很多工厂都倒闭了，他大概明白原因，所以他去读了大学。世界上少了位八十七岁的老人，但他见不到他妈了。他关起房门，一个人哭了一会儿。</p>
+            <hr>
+
+        </div>
+        <!-- content 结束 -->
+    </article>
+
+    <!-- 极简脚注，只起装饰作用，可删除 -->
+    <div class="footer-note">
+        <span>◊</span>  <span>阅读 · 静处</span>  <span>◊</span>
+    </div>
+
+    <!-- 说明：如何替换文章？ 
+         1. 将上面 <h1 class="article-title"> 里的标题改成你自己的。
+         2. 调整 <div class="meta"> 里的作者/日期，或者整行删除。
+         3. 将 <div class="content"> 里面所有演示内容清空，直接粘贴你的文章正文。
+            你可以使用 &lt;p&gt;、&lt;h2&gt;、&lt;blockquote&gt;、&lt;pre&gt; 等任意html标签来保持结构。
+         4. 如果需要增加第二篇、第三篇文章，只需复制整个 &lt;article class="post"&gt; 到下一个，并更改内容。
+         5. 左上角“返回”按钮默认执行 history.back()，即退回上一页（通常是你的个人网站列表页）。
+             如果想直接链接到个人网站首页，可以将 href="javascript:history.back()" 改成 href="/" 或你的绝对网址。
+    -->
+</body>
+</html>

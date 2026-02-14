@@ -1,0 +1,417 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海潮 · 个人网站</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* 重置所有边框为none，然后再有选择地添加 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Playfair Display', 'Noto Sans SC', serif;
+            overflow-x: hidden;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .column {
+            flex-direction: column;
+        }
+
+        .realflex {
+            display: flex;
+        }
+
+        /* 标题样式优化 - 增加字间距 */
+        .title {
+            font-family: 'Playfair Display', 'Noto Sans SC', serif;
+            font-weight: 700;
+            font-size: 4rem;
+            color: #1a1a1a;
+            line-height: 1.3;  /* 增加行高 */
+            margin: 1rem 0 1.5rem 0;  /* 增加上下边距 */
+            letter-spacing: 0.02em;  /* 增加字间距 */
+            word-spacing: 0.1em;  /* 增加词间距 */
+        }
+
+        .introduction {
+            font-family: 'Playfair Display', sans-serif;
+            font-weight: 400;
+            font-size: 1.5rem;
+            letter-spacing: 0.15em;  /* 增加字间距 */
+            color: #b84722;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            line-height: 1.6;  /* 增加行高 */
+        }
+
+        .main-body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;  /* 增加字间距 */
+            color: #4a4a4a;
+            margin-top: 1.5rem;  /* 增加上边距 */
+            line-height: 1.8;  /* 增加行高 */
+        }
+
+        .CN-text {
+            font-family: 'FZXiaoBiaoSong', 'Songti SC', 'SimSun', serif;
+            font-weight: 300;
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;  /* 增加字间距 */
+            line-height: 2;  /* 增加行高 */
+            color: #2c2c2c;
+        }
+
+        .CN-title {
+            font-family: 'FZXiaoBiaoSong', 'Songti SC', 'SimSun', serif;
+            font-weight: 500;
+            font-size: 4rem;
+            color: #1a1a1a;
+            line-height: 1.3;
+            letter-spacing: 0.04em;
+        }
+
+        @font-face {
+            font-family: 'FZXiaoBiaoSong';
+            src: url('/fonts/方正小标宋简体.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .music-intro {
+            font-family: 'FZXiaoBiaoSong', 'Songti SC', 'SimSun', serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            letter-spacing: 0.08em;
+            line-height: 1.8;
+            color: #3d3d3d;
+        }
+
+        .blog {
+            font-family: 'FZXiaoBiaoSong', 'Songti SC', 'SimSun', serif;
+            font-weight: 300;
+            font-size: 2rem;
+            letter-spacing: 0.08em;
+            color: #2c2c2c;
+            transition: color 0.3s ease;
+            position: relative;
+            display: inline-block;
+            line-height: 1.6;
+            margin: 0.5rem 0;
+        }
+
+        .blog:hover {
+            color: #b84722;
+        }
+
+        /* 文章链接添加优雅下划线效果 */
+        .blog::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: #b84722;
+            transition: width 0.3s ease;
+        }
+
+        .blog:hover::after {
+            width: 100%;
+        }
+
+        /* 图片容器和样式优化 */
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 链接样式 */
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #b84722;
+        }
+
+        /* 区块背景颜色区分 */
+        /* 欢迎页面 - 浅米色 */
+.welcome-section {
+    background: linear-gradient(135deg, #fef9f0 0%, #fdf3e7 100%) !important;
+}
+
+/* 音乐页面 - 奶油色 */
+.music-section {
+    background: linear-gradient(135deg, #fff9f0 0%, #fff2e0 100%) !important;
+}
+
+/* 博客页面 - 浅驼色 */
+.blog-section {
+    background: linear-gradient(135deg, #faf3e8 0%, #f5e8d9 100%) !important;
+}
+        
+        /* 结尾页面 - 深色保持不变，但加深对比 */
+        .footer-section {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%) !important;
+        }
+
+        /* 导航栏占位符样式 */
+        .flex div:has(> div:contains("1")) {
+            color: #999;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* 为数字占位符添加样式 */
+        div:has(> :contains("1"):not(p):not(.blog):not(.CN-title)),
+        div:has(> :contains("4"):not(p)),
+        div:has(> :contains("14"):not(p)),
+        div:has(> :contains("15"):not(p)),
+        div:has(> :contains("16"):not(p)),
+        div:has(> :contains("17"):not(p)) {
+            color: #ccc;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        /* 博客文章列表间距优化 */
+        .blog + .blog {
+            margin-top: 1rem;
+        }
+
+        /* 音乐站和博客站标题下方的装饰线 */
+        .CN-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;  /* 增加下边距 */
+        }
+
+
+        /* 欢迎页面的文字容器 - 增加内边距 */
+        .welcome-text-container {
+            padding-top: 5rem !important;  /* 增加顶部内边距 */
+        }
+
+        /* 为欢迎文字添加淡入动画 */
+        .flex[style*="grid-row: 4"] p {
+            animation: fadeInUp 1s ease;
+            margin-bottom: 1.2rem;  /* 增加段落间距 */
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 区块之间的分隔线 */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ddd, transparent);
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* 响应式微调 */
+        @media (max-width: 768px) {
+            .title, .CN-title {
+                font-size: 3rem;
+            }
+            
+            .introduction {
+                font-size: 1.2rem;
+            }
+            
+            .main-body, .CN-text {
+                font-size: 1.1rem;
+            }
+            
+            .blog {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 为右侧图片区块增加细微的背景 */
+        .flex[style*="flex:1.5"] {
+            position: relative;
+        }
+
+        /* 保持原有的grid布局，只美化视觉 */
+        .flex[style*="display:grid"] img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 阅读更多按钮占位符的样式 */
+        div:has(> :contains("16")) {
+            margin-top: 2rem;
+            color: #b84722;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+        }
+
+        div:has(> :contains("16")):hover {
+            opacity: 0.8;
+        }
+
+        /* 结尾页面的占位符居中 */
+        div[style*="height: 800px"] div:contains("17") {
+            text-align: center;
+            font-size: 1rem;
+            color: #ccc;
+            letter-spacing: 4px;
+        }
+    </style>
+</head>
+
+<!-- 音乐与博客站 滚轮滑动页 无永远存在tag -->
+<body class="realflex column">
+    <!-- 整个页面 -->
+    <div class="realflex column">
+        <!-- 欢迎页面 - 浅米色背景 -->
+        <div class="flex welcome-section" style="height:900px;"> 
+            <!-- 导航栏&欢迎文字 -->
+            <div style="display:grid;grid-template-rows: 10% 5% 5% auto 10%;flex:2.5">
+                <!-- 导航栏 -->
+                <div style="grid-row:2; margin-left: 30px; color: #999; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 2px;">
+                    
+                </div>
+                <!-- 欢迎文字 - 增加内边距和间距 -->
+                <div class="welcome-text-container" style="margin-left: 50px; justify-content:center; grid-row: 4; padding-right: 20%;">
+                    <p class="introduction" style="margin-bottom: 1.5rem;"> Guitarist, Composer </p>
+                    <p class="title" style="margin-bottom: 2rem;">Welcome To My <br>Website</p>
+                    <p class="main-body" style="line-height: 2;">Currently living & working in Shanghai</p>
+                    <p class="main-body" style="font-size: 1rem; color: #888; margin-top: 3rem; letter-spacing: 0.1em;">—— 吉他手 · 作曲者 · 写作者 ——</p>
+                </div>
+            </div>
+            <!-- 欢迎图片 -->
+            <div style="flex:1.5; padding-right: 2%;">
+                <img src="img/欢迎.jpg" alt="个人照片" style="width:100%;height:100%;object-fit:cover;object-position:  35%;border-radius: 8px; " loading="lazy">
+            </div>
+            <!-- 空页面边界（改为装饰性文字） -->
+            <div style="flex:0.5; display: flex; align-items: center; justify-content: center; color: #b84722; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; writing-mode: vertical-rl; letter-spacing: 4px;">
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- 装饰性分隔 -->
+        <div class="section-divider"></div>
+        
+        <!-- 音乐页面 - 浅灰蓝色背景 -->
+        <div class="flex music-section" style="height:600px;width:100%;">
+            <!-- 音乐介绍文字 -->
+            <div class="flex" style="flex:1;">
+                <div style="display:grid;grid-template-rows: 10% 10% auto;width:100%;height:100%;">
+                    <p class="CN-title" style="grid-row:1;margin-top:7.5%;margin-left:2.5%;padding:0;"> 音乐站 </p>
+                    <div style="grid-row:3;display:grid; grid-template-rows: 15% 75% 10%;grid-template-columns: 10% 90% ;">
+                        <p class="CN-text" style="grid-row:2;grid-column: 2; line-height: 2.2;"> 目前的创作与研究重心在中西部情绪<br><br>&nbsp;&nbsp;&nbsp;&nbsp;bilibili: <a href="https://space.bilibili.com/146985802?spm_id_from=333.1007.0.0" style="color: #b84722; border-bottom: 1px dotted #b84722;">@海潮生声</a><br>&nbsp;&nbsp;&nbsp;&nbsp;周更合集:练琴日常<br><br>点击右侧图片可观看视频(￣︶￣)↗</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 音乐播放器 -->
+            <div style="flex:1.2;display:grid;grid-template-rows:10% auto 10% auto 25%;">
+                <!-- 音乐上块-->
+                <div style="grid-row:2;display:grid;grid-template-columns: 2.5% 40% 57.5%;">
+                    <a href="https://www.bilibili.com/video/BV1vw6wBcE5P/?vd_source=b5e2cdb06103da73c7537397a900d802" style="grid-column: 2;">
+                        <img src="img/视频1.jpg" alt="视频1" style="width:100%;height:100%; border-radius: 8px;" loading="lazy">
+                    </a>
+                    <p class="music-intro" style="margin-left: 20px;"><br>【中西部情绪/原创】<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;敞开心扉的忧虑riff</p>
+                </div>
+                <!-- 音乐下块 -->
+                <div style="grid-row:4;display:grid;grid-template-columns: 2.5% 40% 57.5%;">
+                    <a href="https://www.bilibili.com/video/BV1r9zkB9E4Q?vd_source=b5e2cdb06103da73c7537397a900d802&spm_id_from=333.788.videopod.sections" style="grid-column: 2;">
+                        <img src="img/视频2.jpg" alt="视频2" style="width:100%;height:100%; border-radius: 8px;" loading="lazy">
+                    </a>
+                    <p class="music-intro" style="margin-left: 20px;"><br>【流行/即兴】<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我已经忘记那件事了</p>
+                </div>
+                <!-- read more按钮 -->
+                <!--<div style="grid-row:5; display: flex; align-items: center; justify-content: flex-end; padding-right: 5%;">
+                    <span style="color: #b84722; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 2px; border-bottom: 1px solid #b84722; padding-bottom: 4px; cursor: pointer;">更多视频 →</span>
+                </div> -->
+            </div>
+        </div>
+        
+        <!-- 装饰性分隔 -->
+        <div class="section-divider"></div>
+        
+        <!-- 博客页面 - 浅暖灰色背景 -->
+        <div class="flex blog-section" style="height:600px;">
+            <!-- 博客介绍文字 -->
+            <div class="flex" style="flex:1;">
+                <div style="display:grid;grid-template-rows: 10% 10% auto;width:100%;height:100%;">
+                    <p class="CN-title" style="grid-row:1;margin-top:7.5%;margin-left:2.5%;padding:0;"> 博客站 </p>
+                    <div style="grid-row:3;display:grid; grid-template-rows: 15% 75% 10%;grid-template-columns: 10% 90% ;">
+                        <p class="CN-text" style="grid-row:2;grid-column: 2; line-height: 2.2;"> 我对我生活的感知<br><br>&nbsp;&nbsp;&nbsp;&nbsp;微信公众号: <span style="color: #b84722;">@海潮潮潮</span><br>&nbsp;&nbsp;&nbsp;&nbsp;合集:杂谈 小诗 短篇小说<br><br>右侧是笔者当前最满意的三篇，欢迎关注。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 博客文章列表 -->
+            <div style="flex:1.2;display:grid;grid-template-rows: 15% auto 10% auto 10% auto 10% ; padding-left: 5%;">
+                <!-- 文章1 -->
+                <div style="grid-row: 2;">
+                    <a href="blog1.html" class="blog">《无题》——杂谈之一</a>
+                </div>
+                <!-- 文章2 -->
+                <div style="grid-row:4;">
+                    <a href="blog2.html" class="blog">《赌徒》——小诗</a>
+                </div>
+                <!-- 文章3 -->
+                <div style="grid-row: 6;">
+                    <a href="blog3.html" class="blog">《此时此刻与彼时彼刻》——短篇小说</a>
+                </div>
+                <!-- read more按钮 -->
+                <!--<div style="grid-row: 8; display: flex; align-items: center;">
+                    <span style="color: #b84722; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 2px; border-bottom: 1px solid #b84722; padding-bottom: 4px; cursor: pointer;">全部文章 →</span>
+                </div> -->
+            </div>
+        </div>
+        
+        <!-- 结尾页面 - 深色背景 -->
+        <div class="flex footer-section">
+            <!-- 结尾文字 -->
+            <div style="height: 400px; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <p style="color: #b84722; font-family: 'Playfair Display', serif; font-size: 2.5rem; letter-spacing: 8px; margin-bottom: 2rem;">海 潮</p>
+                <p style="color: #aaa; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 1rem;">© 2026  ·  上海</p>
+                <p style="color: #666; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 4px; margin-top: 2rem;">✦  ✦  ✦</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
